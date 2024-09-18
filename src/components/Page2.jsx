@@ -1,13 +1,13 @@
+import React from 'react';
 
-function Page2(props) {
+const Page2 = () => {
     return (
-        <div className={`relative min-h-screen flex bg-stone-300`}>
-            <div className="container mx-auto flex justify-center items-center text-4xl ">
+        <div className="relative min-h-screen flex bg-stone-300">
+            <div className="container max-w-screen-xl mx-auto flex justify-center items-center text-4xl">
                 Page 2
             </div>
         </div>
-
     );
-}
+};
 
 export default Page2;
