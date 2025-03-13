@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config"; // 👈 Import ngrok URL
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -12,14 +13,14 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/dashboard", {
+      const response = await axios.post(`${API_BASE_URL}/login`, {
         Username: username,
         UserPassword: password,
       });
 
       localStorage.setItem("token", response.data.token);
       setError("");
-      navigate("/flights"); // redirect after login
+      navigate("/dashboard"); // ✅ Correct redirect
     } catch (err) {
       setError("Invalid username or password");
     }

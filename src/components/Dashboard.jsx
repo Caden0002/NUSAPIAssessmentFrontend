@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FlightSearchComponent from "./FlightSearchComponent";
 import ReservationComponent from "./ReservationComponent";
+import API_BASE_URL from "../config"; // ✅ import base URL
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Dashboard = () => {
 
   const fetchReservations = async () => {
     try {
-      const res = await fetch("http://localhost:3000/reservations/mine", {
+      const res = await fetch(`${API_BASE_URL}/reservations/mine`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -30,7 +31,7 @@ const Dashboard = () => {
 
   const fetchUserInfo = async () => {
     try {
-      const res = await fetch("http://localhost:3000/users/me", {
+      const res = await fetch(`${API_BASE_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +50,7 @@ const Dashboard = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/reservations/${resId}`, {
+      const res = await fetch(`${API_BASE_URL}/reservations/${resId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

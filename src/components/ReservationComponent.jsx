@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import API_BASE_URL from "../config";
 
 const ReservationComponent = ({ onReservationSuccess }) => {
   const [flights, setFlights] = useState([]);
@@ -11,7 +12,7 @@ const ReservationComponent = ({ onReservationSuccess }) => {
 
   // 🛬 Load flights
   useEffect(() => {
-    fetch("http://localhost:3000/flights", {
+    fetch(`${API_BASE_URL}/flights`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -26,7 +27,7 @@ const ReservationComponent = ({ onReservationSuccess }) => {
   useEffect(() => {
     if (!selectedFlight) return;
 
-    fetch(`http://localhost:3000/seats/${selectedFlight}`, {
+    fetch(`${API_BASE_URL}/seats/${selectedFlight}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -39,7 +40,7 @@ const ReservationComponent = ({ onReservationSuccess }) => {
 
   const reserveSeat = async () => {
     try {
-      const res = await fetch("http://localhost:3000/reservations", {
+      const res = await fetch(`${API_BASE_URL}/reservations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +61,6 @@ const ReservationComponent = ({ onReservationSuccess }) => {
       const result = await res.json();
       alert(`✅ Reservation successful! ID: ${result.ResId}`);
 
-      // 🆕 Trigger refresh in Dashboard
       if (onReservationSuccess) onReservationSuccess();
     } catch (err) {
       console.error("Reservation failed:", err);

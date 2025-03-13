@@ -1,5 +1,5 @@
-// components/FlightSearchComponent.jsx
 import React, { useState, useEffect } from "react";
+import API_BASE_URL from "../config"; // ✅ import ngrok URL
 
 const FlightSearchComponent = () => {
   const [origin, setOrigin] = useState("");
@@ -12,7 +12,7 @@ const FlightSearchComponent = () => {
   useEffect(() => {
     const fetchAllFlights = async () => {
       try {
-        const res = await fetch("http://localhost:3000/flights");
+        const res = await fetch(`${API_BASE_URL}/flights`);
         const all = await res.json();
         setFlights(showAll ? all : []);
 
@@ -39,7 +39,7 @@ const FlightSearchComponent = () => {
   const searchFlights = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/external/search?origin=${origin}&destination=${destination}&date=${date}`
+        `${API_BASE_URL}/external/search?origin=${origin}&destination=${destination}&date=${date}`
       );
       const data = await res.json();
       setFlights(data);
